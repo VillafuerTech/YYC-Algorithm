@@ -1,0 +1,9 @@
+# Sample binary matrix for YYC algorithm
+# Lines starting with # are comments
+# Values can be space or comma separated
+
+1 0 1 0 1
+0 1 0 1 0
+1 1 0 0 1
+0 0 1 1 0
+1 0 0 1 1
