@@ -67,7 +67,7 @@ def has_zero_row(matrix: np.ndarray) -> bool:
     Returns:
         True if any row is all zeros, False otherwise.
     """
-    return np.any(np.all(matrix == 0, axis=1))
+    return bool(np.any(np.all(matrix == 0, axis=1)))
 
 
 def format_matrix(matrix: np.ndarray) -> str:

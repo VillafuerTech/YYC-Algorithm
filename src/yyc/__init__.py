@@ -5,7 +5,7 @@ A Python implementation of the YYC algorithm for finding typical testors
 in binary matrices, useful for feature selection in pattern recognition.
 """
 
-from yyc.core.algorithm import yyc_algorithm
+from yyc.core.algorithm import InvalidMatrixError, YYCError, yyc_algorithm
 from yyc.utils.matrix import (
     generate_random_matrix,
     has_zero_row,
@@ -16,6 +16,8 @@ from yyc.utils.matrix import (
 __version__ = "1.0.0"
 __all__ = [
     "yyc_algorithm",
+    "YYCError",
+    "InvalidMatrixError",
     "generate_random_matrix",
     "validate_matrix",
     "has_zero_row",

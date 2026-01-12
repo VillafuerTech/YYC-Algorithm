@@ -6,9 +6,49 @@ the identification of typical testors - minimal sets of attributes that
 can distinguish between all objects in a dataset.
 """
 
-from typing import List, Set, Tuple
+from typing import List, Set, Tuple, Union
 
 import numpy as np
+
+
+class YYCError(Exception):
+    """Base exception for YYC algorithm errors."""
+
+    pass
+
+
+class InvalidMatrixError(YYCError):
+    """Raised when the input matrix is invalid."""
+
+    pass
+
+
+def _validate_input(matrix: np.ndarray) -> None:
+    """
+    Validate the input matrix for the YYC algorithm.
+
+    Args:
+        matrix: The matrix to validate.
+
+    Raises:
+        InvalidMatrixError: If the matrix is invalid.
+        TypeError: If the input is not a numpy array.
+    """
+    if not isinstance(matrix, np.ndarray):
+        raise TypeError(
+            f"Expected numpy.ndarray, got {type(matrix).__name__}. "
+            "Use numpy.array() to convert your data."
+        )
+
+    if matrix.ndim != 2:
+        raise InvalidMatrixError(
+            f"Matrix must be 2-dimensional, got {matrix.ndim} dimensions."
+        )
+
+    if matrix.size > 0 and not np.all((matrix == 0) | (matrix == 1)):
+        raise InvalidMatrixError(
+            "Matrix must contain only binary values (0 and 1)."
+        )
 
 
 def _is_compatible_set(
@@ -52,7 +92,9 @@ def _is_compatible_set(
     return condition1 and condition2
 
 
-def yyc_algorithm(matrix: np.ndarray) -> List[Tuple[int, ...]]:
+def yyc_algorithm(
+    matrix: Union[np.ndarray, List[List[int]]]
+) -> List[Tuple[int, ...]]:
     """
     Find all typical testors in a binary matrix using the YYC algorithm.
 
@@ -60,15 +102,17 @@ def yyc_algorithm(matrix: np.ndarray) -> List[Tuple[int, ...]]:
     distinguish between all objects (rows) in the matrix.
 
     Args:
-        matrix: A binary (0/1) numpy array where rows represent objects
-                and columns represent attributes.
+        matrix: A binary (0/1) numpy array or list of lists where rows
+                represent objects and columns represent attributes.
 
     Returns:
         A sorted list of testors, where each testor is a tuple of
         column indices (0-indexed).
 
     Raises:
-        ValueError: If the matrix is empty or not binary.
+        InvalidMatrixError: If the matrix contains non-binary values or
+                           has invalid dimensions.
+        TypeError: If the input is not a numpy array or list.
 
     Example:
         >>> import numpy as np
@@ -76,6 +120,15 @@ def yyc_algorithm(matrix: np.ndarray) -> List[Tuple[int, ...]]:
         >>> testors = yyc_algorithm(matrix)
         >>> print(testors)
     """
+    # Convert list input to numpy array
+    if isinstance(matrix, list):
+        try:
+            matrix = np.array(matrix)
+        except (ValueError, TypeError) as e:
+            raise InvalidMatrixError(f"Could not convert input to array: {e}")
+
+    _validate_input(matrix)
+
     if matrix.size == 0:
         return []
 

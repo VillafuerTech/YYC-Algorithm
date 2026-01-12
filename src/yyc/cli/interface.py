@@ -12,7 +12,7 @@ from typing import Optional
 
 import numpy as np
 
-from yyc.core.algorithm import yyc_algorithm
+from yyc.core.algorithm import InvalidMatrixError, YYCError, yyc_algorithm
 from yyc.utils.matrix import (
     format_matrix,
     generate_random_matrix,
