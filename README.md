@@ -314,6 +314,58 @@ The YYC algorithm has the following complexity characteristics:
 2. **Matrix density**: Sparse matrices (fewer 1s) typically process faster
 3. **Row ordering**: The algorithm processes rows sequentially; strategic ordering may improve performance
 
+## Benchmarking
+
+A benchmarking tool is included to measure and visualize algorithm performance:
+
+```bash
+# Quick benchmark (smaller matrices)
+python benchmark.py --quick
+
+# Standard benchmark
+python benchmark.py
+
+# Full benchmark (larger matrices)
+python benchmark.py --full
+
+# Generate visualization
+python benchmark.py --plot --output benchmark.png
+
+# Custom sizes
+python benchmark.py --sizes "5x5,10x10,20x15,30x20"
+```
+
+### Benchmark Options
+
+```
+--sizes SIZES    Custom matrix sizes (e.g., '5x5,10x8,20x12')
+--runs RUNS      Runs per size for averaging (default: 3)
+--seed SEED      Random seed for reproducibility (default: 42)
+--plot           Generate visualization
+--output FILE    Save plot to file
+--quick          Quick benchmark with smaller sizes
+--full           Comprehensive benchmark with more sizes
+--quiet          Suppress progress output
+```
+
+### Sample Output
+
+```
+============================================================
+YYC Algorithm Benchmark Results
+============================================================
+
+Size         Time (s)     Testors    Density
+------------------------------------------------------------
+5x5          0.000089     0          44.0%
+10x8         0.000606     13         50.0%
+15x10        0.001641     31         52.0%
+20x12        0.007148     76         51.7%
+------------------------------------------------------------
+Total time: 0.0095 seconds
+============================================================
+```
+
 ## Testing
 
 Run the test suite with pytest:
@@ -348,14 +400,20 @@ yyc-algorithm/
 │   ├── utils/
 │   │   ├── __init__.py
 │   │   └── matrix.py        # Matrix utilities
-│   └── cli/
+│   ├── cli/
+│   │   ├── __init__.py
+│   │   └── interface.py     # Command-line interface
+│   └── benchmarks/
 │       ├── __init__.py
-│       └── interface.py     # Command-line interface
+│       └── runner.py        # Benchmark runner and plotting
 ├── tests/
 │   ├── test_algorithm.py    # Algorithm tests
 │   ├── test_matrix.py       # Utility tests
 │   └── test_error_handling.py
-├── main.py                  # Entry point
+├── examples/
+│   └── sample_matrix.txt    # Sample matrix file
+├── main.py                  # Main entry point
+├── benchmark.py             # Benchmark script
 ├── pyproject.toml           # Package configuration
 ├── requirements.txt         # Dependencies
 └── README.md
