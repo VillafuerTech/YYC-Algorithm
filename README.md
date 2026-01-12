@@ -425,6 +425,7 @@ This project is licensed under the MIT License. See the [LICENSE](LICENSE) file 
 
 ## References
 
+- Alba-Cabrera, E., Ibarra-Fiallo, J., Godoy-Calderon, S., & Cervantes-Alonso, F. (2014). YYC: A fast performance incremental algorithm for finding typical testors. In *Progress in Pattern Recognition, Image Analysis, Computer Vision, and Applications (CIARP 2014)* (Lecture Notes in Computer Science, Vol. 8827, pp. 416–423). Springer. https://doi.org/10.1007/978-3-319-12568-8_51
 - Ruiz-Shulcloper, J., & Lazo-Cortés, M. (1995). Mathematical algorithms for the supervised classification based on the typical testors concept.
 - Santiesteban, Y., & Pons-Porrata, A. (2003). LEX: A new algorithm for the calculation of typical testors. *Revista Ciencias Matemáticas*, 21(1), 85-95.
 
